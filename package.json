@@ -1,0 +1,58 @@
+{
+	"name": "colorize-similar",
+	"displayName": "colorize-similar",
+	"description": "Colorize similar words by edit distance",
+	"version": "0.0.0",
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"publisher": "fukatani",
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.colorizeSimilar",
+		"onCommand:extension.clearColorizeSimilar"
+	],
+	"keywords": [
+		"similar",
+		"color",
+		"colour",
+		"edit distance"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.colorizeSimilar",
+				"title": "Colorize Similar"
+			}, {
+				"command": "extension.clearColorizeSimilar",
+				"title": "Clear Colorize Similar"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/fukatani/colorize-similar"
+    },
+    "license": "SEE LICENSE IN LICENSE.md",
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.39.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"tslint": "^5.12.1",
+		"vscode-test": "^1.2.0"
+	}
+}
