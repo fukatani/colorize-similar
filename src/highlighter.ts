@@ -8,7 +8,7 @@ interface HighlightColors {
 }
 
 function isAlphaNumeric (ch: string) {
-    return ch.match(/^[a-zA-Z0-9_]+$/i) !== null;
+    return ch.match(/^[a-zA-Z_]+[a-zA-Z0-9_]*$/i) !== null;
 }
 
 // from https://gist.github.com/keesey/e09d0af833476385b9ee13b6d26a2b84
@@ -120,15 +120,24 @@ class Highlighter {
         if (!editor) {
             return [];
         }
-        const text = editor.document.getText();
-        const words = text.replace('\n', ' ').replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ').split(' ');
+        let words = new Set<string>();
+        const expression = /\b[a-zA-Z_]+[a-zA-Z0-9_]*\b/;
+        const regEx = new RegExp(expression, 'gi');
+        let match;
+        while (match = regEx.exec(editor.document.getText())) {
+            words.add(match.toString());
+            console.info(match.toString());
+        }
+            
         const selected_text = editor.document.getText(editor.selection);
-        let filtered_words: string[] = []
+        let filtered_words: string[] = [];
         words.forEach(function (word) {
-            if (isAlphaNumeric(word) && levenshtein(selected_text, word) <= 1) {
+            if (levenshtein(selected_text, word) <= 1) {
                 filtered_words.push(word);
             }
         });
+        window.showInformationMessage("Found " + filtered_words.join(", "));
+
         return filtered_words;
     }
 
@@ -143,7 +152,7 @@ class Highlighter {
             window.showInformationMessage("Please select some word.");
             return;
         }
-        if (!isAlphaNumeric(selected_text)) {
+        if (!isAlphaNumeric(selected_text) && active == true) {
             window.showInformationMessage("Colorize similar support alphanumeric only.");
             return;
         }
