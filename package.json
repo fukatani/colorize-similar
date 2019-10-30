@@ -2,7 +2,7 @@
 	"name": "colorize-similar",
 	"displayName": "colorize-similar",
 	"description": "Colorize similar words by edit distance",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
